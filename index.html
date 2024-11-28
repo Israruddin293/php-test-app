@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit and Fetch Data</title>
+    <script>
+        // Function to fetch data from the database without refreshing the page
+        function fetchData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "fetch.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("data-table").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
 </head>
 <body>
 
@@ -19,6 +32,8 @@
     </form>
 
     <h2>Submitted Data</h2>
+    <button onclick="fetchData()">Fetch Data</button>
+
     <table border="1">
         <thead>
             <tr>
@@ -26,8 +41,8 @@
                 <th>Email</th>
             </tr>
         </thead>
-        <tbody>
-            <?php include('fetch.php'); ?>
+        <tbody id="data-table">
+            <!-- Data will be fetched and displayed here -->
         </tbody>
     </table>
 
